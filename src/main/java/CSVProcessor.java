@@ -14,7 +14,7 @@ public class CSVProcessor {
 
         CSVReader reader = new CSVReaderBuilder(new FileReader(fileName)).withSkipLines(1).build();
 
-        List<CutList> cuts = new ArrayList<CutList>();
+        List<CutList> cuts = new ArrayList<>();
 
         String[] record = null;
 
@@ -25,14 +25,14 @@ public class CSVProcessor {
                 String[] fixed = record[0].split(" "); // Split record by spaces
                 if(Character.isDigit(fixed[0].charAt(0))) { // if 2nd Character is a number
                 cut.setQty(fixed[0]);
-                if(fixed.length == 3) {
+                if(fixed.length == 3) { // If only feet are represented
                     cut.setLength(fixed[2]);
                     String tmp = fixed[2];
                     tmp = tmp.replace(tmp.substring(tmp.length()-1), "");
                     int temp = Integer.parseInt(tmp);
                     cut.setInches(Integer.toString(temp * 12));
 
-                } else if(fixed.length == 4) {
+                } else if(fixed.length == 4) { // if feet and inches are represented
                     cut.setLength(fixed[fixed.length -2] + fixed[fixed.length -1]);
                     String tmp = fixed[2];
                     tmp = tmp.replace(tmp.substring(tmp.length()-1), "");
