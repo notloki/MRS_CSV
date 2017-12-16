@@ -63,7 +63,7 @@ public class CSVProcessor {
 
         String outFilename = "src/main/resources/out.csv";
 
-        CSVWriter csvWriter = new CSVWriter(new FileWriter(outFilename), ',', ' ');
+        CSVWriter csvWriter = new CSVWriter(new FileWriter(outFilename), ',', ' ', '"', "\n");
         //csvWriter.writeNext(header, false);
 
         List<String[]> data = toStringArray(cuts);
