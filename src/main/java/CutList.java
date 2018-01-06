@@ -33,6 +33,6 @@ public class CutList {
 
     @Override
     public String toString() {
-        return (qty + "," + length + "," + "False" + ",,,,," + inches + ".000");
+        return (qty + "," + length + "," + "False" + ",,,,," + inches);
     }
 }

@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -38,17 +39,20 @@ public class CSVProcessor {
                     cut.setLength(fixed[2]);
                     String tmp = fixed[2];
                     tmp = tmp.replace(tmp.substring(tmp.length()-1), "");
+                    DecimalFormat decimalFormat = new DecimalFormat("#.000");
+
                     float temp = Float.parseFloat(tmp);
-                    cut.setInches(Float.toString(temp * 12));
+                    cut.setInches(decimalFormat.format(temp * 12));
 
                 } else if(fixed.length == 4) { // if feet and inches are represented
                     cut.setLength(fixed[fixed.length -2] + fixed[fixed.length -1]);
                     String tmp = fixed[2];
                     tmp = tmp.replace(tmp.substring(tmp.length()-1), "");
-                    int temp = Integer.parseInt(tmp);
+                    float temp = Float.parseFloat(tmp);
                     String tmp2 = fixed[3];
                     tmp2 = tmp2.replace(tmp2.substring(tmp2.length()-1), "");
-                    cut.setInches(Integer.toString((temp * 12) + Integer.parseInt(tmp2)));
+                    DecimalFormat decimalFormat = new DecimalFormat("#.000");
+                    cut.setInches(decimalFormat.format((temp * 12) + Float.parseFloat(tmp2)));
                 }
                 //System.out.println(Arrays.toString(fixed));
 
@@ -63,7 +67,7 @@ public class CSVProcessor {
 
         String outFilename = "src/main/resources/out.csv";
 
-        CSVWriter csvWriter = new CSVWriter(new FileWriter(outFilename), ',', ' ', '"', "\n");
+        CSVWriter csvWriter = new CSVWriter(new FileWriter(outFilename), ',', ' ', ' ', "\n");
         //csvWriter.writeNext(header, false);
 
         List<String[]> data = toStringArray(cuts);
