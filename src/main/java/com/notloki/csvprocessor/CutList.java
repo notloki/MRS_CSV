@@ -1,7 +1,9 @@
-
+package com.notloki.csvprocessor;
 // Object to hold fields from CSV file
 
 public class CutList {
+
+    CSVProcessor processor = new CSVProcessor();
 
     private String qty;
     private String length;

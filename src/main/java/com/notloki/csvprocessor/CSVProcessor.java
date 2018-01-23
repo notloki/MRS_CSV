@@ -1,15 +1,11 @@
+package com.notloki.csvprocessor;
+
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
-import com.opencsv.bean.ColumnPositionMappingStrategy;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.awt.*;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,10 +13,26 @@ import java.util.Iterator;
 import java.util.List;
 
 
+
 public class CSVProcessor {
 
-    private static String fileName = "src/main/resources/in.csv";
+
+    // private static String fileName = "src/main/resources/in.csv";
     public static void main(String args[] ) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
+
+
+
+        FileDialog dialog = new FileDialog((Frame)null, "Select CSV File to Open");
+        dialog.setFile("*.csv");
+        dialog.setMode(FileDialog.LOAD);
+        dialog.setVisible(true);
+
+        String fileName = dialog.getDirectory() + dialog.getFile();
+        if(fileName.equals("nullnull")) {
+            System.out.println("You failed to pick");
+            System.exit(0);
+        }
+        System.out.println(fileName + " chosen.");
 
         CSVReader reader = new CSVReader(new FileReader(fileName), ',','`',  1);
 
@@ -54,7 +66,6 @@ public class CSVProcessor {
                     DecimalFormat decimalFormat = new DecimalFormat("#.000");
                     cut.setInches(decimalFormat.format((temp * 12) + Float.parseFloat(tmp2)));
                 }
-                //System.out.println(Arrays.toString(fixed));
 
                 cuts.add(cut);
             }
@@ -65,14 +76,27 @@ public class CSVProcessor {
 
         reader.close();
 
-        String outFilename = "src/main/resources/out.csv";
+        FileDialog writeDialog = new FileDialog((Frame)null, "Save");
+        writeDialog.setMode(FileDialog.SAVE);
+        writeDialog.setVisible(true);
+        writeDialog.setDirectory("\\\\10.100.89.245\\mrs\\");
+        String outFileName = writeDialog.getDirectory() + writeDialog.getFile();
+        if(outFileName.equals("nullnull")) {
+            System.out.println("Failed to Choose FileName");
+            System.exit(0);
+        }
+        System.out.println(outFileName + " chosen.");
+        if(!(outFileName.endsWith(".csv"))) {
+            outFileName = outFileName + ".csv";
+        }
 
-        CSVWriter csvWriter = new CSVWriter(new FileWriter(outFilename), ',', ' ', ' ', "\n");
-        //csvWriter.writeNext(header, false);
+
+        CSVWriter csvWriter = new CSVWriter(new FileWriter(outFileName), ',', ' ', ' ', "\n");
 
         List<String[]> data = toStringArray(cuts);
         csvWriter.writeAll(data, false);
         csvWriter.close();
+        System.exit(0);
 
     }
 

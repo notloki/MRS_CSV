@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CSVProcessor.iml" filepath="$PROJECT_DIR$/.idea/modules/CSVProcessor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.notloki.csvprocessor.CSVProcessor.iml" filepath="$PROJECT_DIR$/.idea/modules/com.notloki.csvprocessor.CSVProcessor.iml" />
     </modules>
   </component>
 </project>
